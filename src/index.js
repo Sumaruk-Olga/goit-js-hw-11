@@ -1,24 +1,30 @@
 import Notiflix from 'notiflix';
 import axios from "axios";
+const debounce = require('lodash.debounce');
+
+const DEBOUNCE_DELAY = 300;
 
 const refs = {
-    searchQuery: document.querySelector('input[name="searchQuery"]'),
-    submit:document.querySelector('button[type="submit"]'),
+    form:document.querySelector('.search-form'),
+    // searchQuery: document.querySelector('input[name="searchQuery"]'),
+    // submit:document.querySelector('button[type="submit"]'),
 };
 
-console.log(refs.searchQuery);
-console.log(refs.submit);
+console.log(refs.form);
+// console.log(refs.submit);
 
-refs.searchQuery.addEventListener('input', onInputChange);
-refs.submit.addEventListener('submit', onSubmitForm);
+refs.form.addEventListener('input', debounce(onInputChange, DEBOUNCE_DELAY));
+refs.form.addEventListener('submit', onSubmitForm);
 
 
 function onInputChange(event) {
-    //
+    console.log(event.target.value);
 }
 
 function onSubmitForm(event) {
     event.preventDefault();
+    console.log('hi');
+    refs.form.reset();
 }
 
 // Example
