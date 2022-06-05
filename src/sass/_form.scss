@@ -23,6 +23,11 @@ li {
   list-style: none;
 }
 
+.container{
+      padding: 0px 15px;
+      margin: 0 auto;      
+}
+
 .visually-hidden {
   position: absolute;
   white-space: nowrap;
@@ -34,4 +39,78 @@ li {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   margin: -1px;
+}
+
+.search-input{
+  border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.gallery{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  // background-color: aqua;
+  //
+}
+
+.photo-card{
+  width: 24%;
+margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  // background-color: coral; 
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.info-item{
+  display: flex;
+  flex-direction: column;
+  // border: 1px solid blue;
+margin-top: 5px;
+  align-items: center;
+}
+
+.card-img{
+  height: 80%;
+}
+
+.search-form{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: blue;
+}
+
+.search-btn{
+margin-left: 15px;
+border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.load-more{
+margin: 10px auto;
+    display: block;
+      border-radius: 4px;
+      justify-content: center;
+  background-color: blue;
+  color: #fff;
+  border: 1px solid #000;
+font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
 }

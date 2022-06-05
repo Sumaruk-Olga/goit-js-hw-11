@@ -11,8 +11,6 @@ const refs = {
 
 const apiService = new ApiService();
 
-
-//ховаємо непотрібну кнопку
 refs.more.classList.add('visually-hidden');
 
 refs.form.addEventListener('submit', onSubmitForm);
@@ -35,6 +33,7 @@ async function onSubmitForm(event) {
     }
         try {
             const data = await apiService.fetchData();
+            apiService.incrementPage();
             renderCards(data);
            
 
@@ -49,32 +48,44 @@ async function onSubmitForm(event) {
 async function onLoadMoreClick(event) {
     try {
         const data = await apiService.fetchData();
+        apiService.incrementPage();
     renderCards(data);
   
     } catch (error) {
         console.log(error);
     }
-    
-}
+    }
 
 function renderCards(data) {
-    if (data.hits.length === 0) {  
+    if (data.hits.length === 0) {
         refs.more.classList.add('visually-hidden');
         Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-    } else {        
-
-        const seenPages = apiService.getPage();
+    } else {
+        const seenPages = apiService.getPage() - 1;
         console.log(seenPages);
         let imagesFind;
-        if (seenPages === 1) {            
-          imagesFind = data.total; 
+
+
+        if (seenPages === 1) {
+            imagesFind = data.total;
+            Notiflix.Notify.success(`Hooray! We found totalHits ${imagesFind} images.`);
+                refs.more.classList.remove('visually-hidden');
         } else {
-         imagesFind = data.total- (40*seenPages) ;
+            imagesFind = data.total - (40 * seenPages);
+            if (imagesFind <= 40) {
+                Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
+                
+                refs.more.classList.add('visually-hidden');                
+            } else {
+                Notiflix.Notify.success(`Hooray! We found totalHits ${imagesFind} images.`);
+                refs.more.classList.remove('visually-hidden');
+            }
+            
         }
+           
+            const allCards = data.hits.map((el) => renderCard(el)).join("");
+            refs.gallery.insertAdjacentHTML("beforeend", allCards);
+            
         
-        Notiflix.Notify.success(`Hooray! We found totalHits ${imagesFind} images.`);
-        const allCards = data.hits.map((el) => renderCard(el)).join("");
-        refs.gallery.insertAdjacentHTML("beforeend", allCards);
-        refs.more.classList.remove('visually-hidden');
     }
 }

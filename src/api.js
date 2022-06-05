@@ -20,8 +20,7 @@ class ApiService {
       page: this.#page,
       per_page: 40,
     });
-      const response = await axios.get(`?${queryParams}`);
-      this.incrementPage();
+      const response = await axios.get(`?${queryParams}`);    
     return response.data;
   }
 
