@@ -65,6 +65,10 @@ function renderCards(data) {
         console.log(seenPages);
         let imagesFind;
 
+        if (seenPages > 12) {
+            Notiflix.Notify.info(`We're sorry, but you've reached the end of FREE search results.`);                
+                refs.more.classList.add('visually-hidden');
+        }
 
         if (seenPages === 1) {
             imagesFind = data.total;
@@ -73,8 +77,7 @@ function renderCards(data) {
         } else {
             imagesFind = data.total - (40 * seenPages);
             if (imagesFind <= 40) {
-                Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
-                
+                Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);                
                 refs.more.classList.add('visually-hidden');                
             } else {
                 Notiflix.Notify.success(`Hooray! We found totalHits ${imagesFind} images.`);
