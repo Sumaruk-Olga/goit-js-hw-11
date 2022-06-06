@@ -68,9 +68,8 @@ function renderCards(data) {
         if (seenPages > 12) {
             Notiflix.Notify.info(`We're sorry, but you've reached the end of FREE search results.`);                
                 refs.more.classList.add('visually-hidden');
-        }
-
-        if (seenPages === 1) {
+        } else {
+            if (seenPages === 1) {
             imagesFind = data.total;
             Notiflix.Notify.success(`Hooray! We found totalHits ${imagesFind} images.`);
                 refs.more.classList.remove('visually-hidden');
@@ -85,6 +84,9 @@ function renderCards(data) {
             }
             
         }
+        }
+
+        
            
             const allCards = data.hits.map((el) => renderCard(el)).join("");
             refs.gallery.insertAdjacentHTML("beforeend", allCards);
