@@ -1,13 +1,9 @@
 import Notiflix from 'notiflix';
 import ApiService from './api';
 import { renderCard } from './renderCards';
-
-
-const refs = {
-    form: document.querySelector('.search-form'),   
-    more: document.querySelector('.load-more'),
-    gallery: document.querySelector('.gallery'),
-};
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+import { refs } from './refs';
 
 const apiService = new ApiService();
 
@@ -49,7 +45,8 @@ async function onLoadMoreClick(event) {
     try {
         const data = await apiService.fetchData();
         apiService.incrementPage();
-    renderCards(data);
+        renderCards(data);
+        lightbox.refresh();        
   
     } catch (error) {
         console.log(error);
@@ -91,6 +88,12 @@ function renderCards(data) {
             const allCards = data.hits.map((el) => renderCard(el)).join("");
             refs.gallery.insertAdjacentHTML("beforeend", allCards);
             
-        
+        const lightbox = new SimpleLightbox('.photo-card .card-big-img', { 
+        captionsData: 'alt',
+        captionDelay: 250,        
+        });
+                
     }
 }
+
+

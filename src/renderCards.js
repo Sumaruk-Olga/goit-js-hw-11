@@ -1,8 +1,10 @@
-export function renderCard({webformatURL, tags, likes, views, comments, downloads}) {
+export function renderCard({webformatURL, tags, likes, views, comments, downloads, largeImageURL}) {
 
     return `
     <div class="photo-card">
+    <a class="card-big-img" href="${largeImageURL}">
   <img src="${webformatURL}" alt="${tags}" loading="lazy" class="card-img"/>
+  </a>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>
